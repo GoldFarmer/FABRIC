@@ -24,7 +24,7 @@ immediately reconcile cache state after that external operation.
 | Performance guardrails | Card rendering uses cached constant-time lookups and does not scan outfits, poll, or rebuild during rendering. | Pass | Structural audit of the card and tooltip paths completed; manual FPS profiling was intentionally excluded from the release scope. |
 | Logging and diagnostics | Runtime diagnostics are routed through `FabricLog`, preserve useful error context, and apply the generated build flavor's verbosity default. | Pass | Debug defaults to TRACE through ERROR; Release defaults to INFO/WARN/ERROR. |
 | Package verification | Debug and Release archives contain the required FABRIC service and generated build profile. | Pass | `tools\package.ps1` extracts each archive and verifies the organized service path and generated build profile. The release archive was deployed with its release profile confirmed. |
-| Documentation and disclosure | Shipped and publication-facing materials document dependencies, known WEAVE limitations, licensing, and development assistance. | Pass | The shipped README, Nexus listing, and standalone Nexus description carry aligned disclosure; implementation behavior is recorded in this acceptance document and the smoke-test checklist. |
+| Documentation and disclosure | Shipped and publication-facing materials document dependencies, known WEAVE limitations, licensing, development assistance, and the canonical source. | Pass | The shipped README, Nexus listing, and standalone Nexus description point to the canonical GitHub repository; implementation behavior is recorded in this acceptance document and the smoke-test checklist. |
 
 ## Release boundary
 

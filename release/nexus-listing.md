@@ -24,6 +24,13 @@ FABRIC shows which saved outfits use each clothing item. It adds a configurable 
 
 Do not copy a [b]Logs.reds[/b] file from another mod into the FABRIC folder. The shared logging declarations are installed once at [b]r6\scripts\Logs.reds[/b].
 
+[size=4][b]Source, documentation, and support[/b][/size]
+FABRIC's canonical source, implementation documentation, and smoke-test checklist are maintained
+on [url=https://github.com/GoldFarmer/FABRIC]GitHub[/url]. Please report reproducible bugs and
+compatibility findings through the
+[url=https://github.com/GoldFarmer/FABRIC/issues]GitHub issue tracker[/url]. Nexus remains the
+release-download page.
+
 [size=4][b]Main features[/b][/size]
 [list]
 [*]Shows a configurable marker on clothing associated with one or more saved outfits.

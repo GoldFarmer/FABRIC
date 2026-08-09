@@ -2,6 +2,9 @@
 
 FABRIC is a REDscript mod for Cyberpunk 2077 that surfaces relationships between Equipment-EX clothing items and saved outfits.
 
+The canonical source, implementation documentation, and issue tracker are maintained at
+[GoldFarmer/FABRIC](https://github.com/GoldFarmer/FABRIC). Nexus is the release-download page.
+
 ## Runtime dependencies
 
 Required:
