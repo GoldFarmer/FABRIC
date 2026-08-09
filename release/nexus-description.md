@@ -17,12 +17,12 @@ Mod Settings is optional and provides controls for the marker icon, color, and c
 
 Extract the release ZIP into the Cyberpunk 2077 game directory. Do not bundle or overwrite the shared `Logs.reds` file from another mod.
 
-## Source, documentation, and support
+## Project links
 
-The canonical source, implementation documentation, and smoke-test checklist are maintained at
-[GoldFarmer/FABRIC](https://github.com/GoldFarmer/FABRIC). Report reproducible bugs and
-compatibility findings through the [GitHub issue tracker](https://github.com/GoldFarmer/FABRIC/issues).
-Nexus remains the release-download page.
+- [Source code and documentation](https://github.com/GoldFarmer/FABRIC)
+- [Report a bug or compatibility issue](https://github.com/GoldFarmer/FABRIC/issues)
+
+Nexus hosts the release download.
 
 ## Development disclosure
 
