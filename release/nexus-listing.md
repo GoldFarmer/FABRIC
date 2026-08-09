@@ -22,8 +22,6 @@ FABRIC shows which saved outfits use each clothing item. It adds a configurable 
 [*]Start the game. FABRIC builds its outfit-association cache after the player loads.
 [/list]
 
-Do not copy a [b]Logs.reds[/b] file from another mod into the FABRIC folder. The shared logging declarations are installed once at [b]r6\scripts\Logs.reds[/b].
-
 [size=4][b]Project links[/b][/size]
 [list]
 [*][url=https://github.com/GoldFarmer/FABRIC]Source code and documentation[/url]
@@ -47,7 +45,7 @@ Nexus hosts the release download.
 [*]Cyberpunk 2077 with [url=https://www.nexusmods.com/cyberpunk2077/mods/2380]RED4ext[/url] by [url=https://www.nexusmods.com/profile/WopsS]WopsS[/url] and [url=https://www.nexusmods.com/cyberpunk2077/mods/1511]redscript[/url] by [url=https://www.nexusmods.com/profile/jac3km4]jac3km4[/url].
 [*][url=https://www.nexusmods.com/cyberpunk2077/mods/6945]Equipment-EX[/url] by [url=https://www.nexusmods.com/profile/psiberx]psiberx[/url] and [url=https://next.nexusmods.com/profile/djkovrik]DJ_Kovrik[/url].
 [*][url=https://www.nexusmods.com/cyberpunk2077/mods/7780]Codeware[/url] by [url=https://www.nexusmods.com/profile/psiberx]psiberx[/url].
-[*]Shared REDscript logging declarations at [b]r6\scripts\Logs.reds[/b].
+[*]Shared REDscript logging declarations already present at [b]r6\scripts\Logs.reds[/b]. See the GitHub README for the one-time installer when the file is absent.
 [/list]
 
 [b]Optional / compatible[/b]
@@ -56,8 +54,6 @@ Nexus hosts the release download.
 [*][url=https://www.nexusmods.com/cyberpunk2077/mods/28273]WEAVE - Equipment-EX Extension[/url] by [url=https://www.nexusmods.com/profile/ApoKrytia]ApoKrytia[/url]. FABRIC works without it.
 [*][url=https://www.nexusmods.com/cyberpunk2077/mods/2987]Virtual Atelier[/url] by [url=https://www.nexusmods.com/profile/Pacings]Pacings[/url] and [url=https://next.nexusmods.com/profile/djkovrik]djkovrik[/url]. Supported but not required.
 [/list]
-
-The shared REDscript logging declarations are a game-level file installed at [b]r6\scripts\Logs.reds[/b], not a separately published Nexus mod.
 
 [size=4][b]Shout outs[/b][/size]
 Thanks to the authors of the required and companion mods listed above, and to the REDmodding community for the tools and documentation that make Cyberpunk 2077 modding possible.

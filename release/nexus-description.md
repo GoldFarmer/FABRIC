@@ -15,7 +15,7 @@ Mod Settings is optional and provides controls for the marker icon, color, and c
 
 ## Installation
 
-Extract the release ZIP into the Cyberpunk 2077 game directory. Do not bundle or overwrite the shared `Logs.reds` file from another mod.
+Extract the release ZIP into the Cyberpunk 2077 game directory.
 
 ## Project links
 
