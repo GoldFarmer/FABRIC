@@ -111,7 +111,7 @@ is the vanilla item-card refresh path above. It must:
 3. Applies FABRIC's visual changes (marker and tooltip).
 4. Uses only item metadata APIs to identify clothing; never checks hard-coded category strings.
 
-FABRIC must not directly annotate an Equipment-EX scripted controller or method. Source-discovered Equipment-EX UI seams remain reference material in steering. The marker implementation uses a FABRIC-owned upper-left `inkImage`, initialized from the vanilla loop-bordered atlas. The shipped style uses its `clothing` texture part and green tint for both the icon and Raj Semi-Bold count label. Owned-card paths query the complete `ItemID`; only Virtual Atelier catalog paths resolve the record before querying the service. The marker must not reuse another mod's marker widget. The marker occupies a 21 × 21 px box with 12 px left and top insets. Its count label begins at a 36 px left and 8 px top inset. FABRIC disables safely with diagnostics if its hard Equipment-EX dependency is unavailable or incompatible. Its logging helper uses the shared game-level REDscript logging declarations and does not package or declare those native functions itself.
+FABRIC must not directly annotate an Equipment-EX scripted controller or method. Source-discovered Equipment-EX UI seams remain reference material in steering. The marker implementation uses a FABRIC-owned upper-left `inkImage`, initialized from the vanilla loop-bordered atlas. The shipped style uses its `clothing` texture part and green tint for both the icon and Raj Semi-Bold count label. Owned-card paths query the complete `ItemID`; only Virtual Atelier catalog paths resolve the record before querying the service. The marker must not reuse another mod's marker widget. The marker occupies a 21 × 21 px box with 12 px left and top insets. Its count label begins at a 36 px left and 8 px top inset. FABRIC disables safely with diagnostics if its hard Equipment-EX dependency is unavailable or incompatible. Its debug logging backend uses shared game-level REDscript logging declarations; the Debug development installer creates them only when absent. The Release installer removes that exact file for a clean test, and neither package includes it.
 
 ---
 
@@ -132,13 +132,15 @@ Thin configuration wrapper. Exposes:
 public func IsVerboseLoggingEnabled() -> Bool
 ```
 
-Release default: verbose logging off. Debug default: verbose logging on. When enabled, `FabricService` and adapters emit diagnostic events such as rebuild trigger, rebuild duration, and cache sizes.
+Release builds select a no-op logging backend. Debug builds select the engine logging backend and default verbose logging on, so `FabricService` and adapters can emit diagnostic events such as rebuild trigger, rebuild duration, and cache sizes.
 
 ### FabricLog
 
-`FabricLog` is the sole diagnostics wrapper. For each permitted severity it emits one
-severity-prefixed message through the matching engine `Log` function (`Log`, `LogWarning`, or
-`LogError`), which supplies CET Game Log visibility and writes to CET's `gamelog.log`.
+`FabricLog` is the sole diagnostics wrapper and delegates to a generated `FabricLogBackend`.
+Release packages receive a no-op backend with no native logging references. Debug packages receive
+an `FTLog` backend that emits one severity-prefixed message per permitted diagnostic. The
+development installer selects the matching backend: Debug ensures root-level `Logs.reds` exists,
+while Release removes it; package archives never include that shared declarations file.
 
 ### Source documentation hygiene
 
@@ -146,8 +148,8 @@ Every FABRIC class and function has an immediate contract docstring. Function co
 purpose, parameters, return behavior, and error or safe-default behavior; `tests/quality.ps1`
 enforces the required `@param`, `@return`, and `@errors` fields alongside source width and stale
 implementation-path checks.
-Engine-log entries carry a `[FABRIC]` prefix; error entries additionally use Codeware `GetStackTrace(3, true)` to record
-the immediate class/function call site. The shared native declarations remain a game-level
+Debug engine-log entries carry a `[FABRIC]` prefix; errors additionally use Codeware `GetStackTrace(3, true)` to record
+the immediate class/function call site. The shared native declarations remain a debug-only game-level
 prerequisite and are never packaged with FABRIC.
 
 ---
@@ -240,7 +242,8 @@ src/
       FabricMarkerSettings.reds # optional Mod Settings bridge
       FabricMarkerStyle.reds  # shipped marker presentation mapping
     diagnostics/
-      FabricLog.reds          # diagnostic logging helpers
+      FabricLog.reds          # stable diagnostic logging façade
+      FabricLogBackend.reds   # generated release or debug logging backend
 
 FABRIC_Mod_Specification.md
 ```

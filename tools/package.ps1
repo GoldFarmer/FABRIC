@@ -21,6 +21,7 @@ $redCliArchive = Join-Path $redCliOutput $packageName
 $redCliRootArchive = Join-Path $root "$($manifest.name)-$($manifest.version).zip"
 $fabricSource = Join-Path $root 'src\FABRIC'
 $profileTemplate = Join-Path $root "tools\templates\FabricBuildProfile.$flavor.reds"
+$loggingTemplate = Join-Path $root "tools\templates\FabricLogBackend.$flavor.reds"
 $redCli = Get-FabricRedCli
 
 if (Test-Path -LiteralPath $stage) { Remove-Item -LiteralPath $stage -Recurse -Force }
@@ -38,6 +39,7 @@ Copy-Item -Path (Join-Path $fabricSource '*') -Destination $scriptsStage -Recurs
 $manifest | Add-Member -NotePropertyName 'buildFlavor' -NotePropertyValue $flavor -Force
 $manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $stage 'FABRIC-manifest.json')
 Copy-Item -LiteralPath $profileTemplate -Destination (Join-Path $scriptsStage 'FabricBuildProfile.reds') -Force
+Copy-Item -LiteralPath $loggingTemplate -Destination (Join-Path $scriptsStage 'diagnostics\FabricLogBackend.reds') -Force
 if (Test-Path -LiteralPath (Join-Path $root 'README.md')) {
   Copy-Item -LiteralPath (Join-Path $root 'README.md') -Destination (Join-Path $stage 'README.md') -Force
 }
@@ -58,6 +60,16 @@ if (-not (Test-Path -LiteralPath (Join-Path $verifyPath 'r6\scripts\FABRIC\core\
 }
 if (-not (Test-Path -LiteralPath (Join-Path $verifyPath 'r6\scripts\FABRIC\FabricBuildProfile.reds'))) {
   throw 'Package validation failed: expected generated build profile is missing.'
+}
+if (-not (Test-Path -LiteralPath (Join-Path $verifyPath 'r6\scripts\FABRIC\diagnostics\FabricLogBackend.reds'))) {
+  throw 'Package validation failed: expected generated logging backend is missing.'
+}
+if ($flavor -eq 'release') {
+  $nativeLogCalls = Get-ChildItem -LiteralPath (Join-Path $verifyPath 'r6\scripts\FABRIC') -Filter '*.reds' -Recurse |
+    Select-String -Pattern '(?<![A-Za-z])(Log|LogWarning|LogError|LogChannel|LogChannelWarning|LogChannelError|FTLog|FTLogWarning|FTLogError)\s*\('
+  if ($nativeLogCalls) {
+    throw 'Package validation failed: release scripts must not call native logging functions.'
+  }
 }
 Remove-Item -LiteralPath $verifyPath -Recurse -Force
 Write-Host "Created $packagePath"

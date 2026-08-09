@@ -21,6 +21,7 @@ FABRIC shows which saved outfits use each clothing item. It adds a configurable 
 [*]Extract the FABRIC release ZIP into the Cyberpunk 2077 game directory, preserving its folder structure.
 [*]Start the game. FABRIC builds its outfit-association cache after the player loads.
 [/list]
+The release build does not require or include a shared [i]Logs.reds[/i] file.
 
 [size=4][b]Project links[/b][/size]
 [list]
@@ -45,7 +46,6 @@ Nexus hosts the release download.
 [*]Cyberpunk 2077 with [url=https://www.nexusmods.com/cyberpunk2077/mods/2380]RED4ext[/url] by [url=https://www.nexusmods.com/profile/WopsS]WopsS[/url] and [url=https://www.nexusmods.com/cyberpunk2077/mods/1511]redscript[/url] by [url=https://www.nexusmods.com/profile/jac3km4]jac3km4[/url].
 [*][url=https://www.nexusmods.com/cyberpunk2077/mods/6945]Equipment-EX[/url] by [url=https://www.nexusmods.com/profile/psiberx]psiberx[/url] and [url=https://next.nexusmods.com/profile/djkovrik]DJ_Kovrik[/url].
 [*][url=https://www.nexusmods.com/cyberpunk2077/mods/7780]Codeware[/url] by [url=https://www.nexusmods.com/profile/psiberx]psiberx[/url].
-[*]Shared REDscript logging declarations already present at [b]r6\scripts\Logs.reds[/b]. See the GitHub README for the one-time installer when the file is absent.
 [/list]
 
 [b]Optional / compatible[/b]

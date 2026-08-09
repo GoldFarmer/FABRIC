@@ -2,7 +2,7 @@
 
 Record the game, REDscript, RED4ext, Equipment-EX, WEAVE (if installed), and FABRIC versions before running this checklist.
 
-1. Start from a clean FABRIC install and confirm REDscript reports no compilation error.
+1. Start from a clean FABRIC release install with no shared `r6\\scripts\\Logs.reds` file and confirm REDscript reports no compilation error. This verifies that the release package has no logging-declaration prerequisite.
 2. Open the Equipment-EX wardrobe and confirm FABRIC loads without UI errors.
 3. Create an outfit, add and remove clothing, then delete it; verify affected marker counts after each operation.
 4. If WEAVE is installed, rename an outfit and verify the add-then-delete sequence preserves correct associations.
@@ -11,5 +11,6 @@ Record the game, REDscript, RED4ext, Equipment-EX, WEAVE (if installed), and FAB
 7. Test two apparent copies of one garment, including after save/load. Do not claim per-instance precision unless their complete ItemIDs differ.
 8. Test used and unused marker states together with the outfit-tooltip section. Change selections or scroll a virtualized card list to confirm an unbound/unsupported item never retains a prior marker or FABRIC tooltip section.
 9. Remove FABRIC's installed script directory, start the game, and confirm the game and Equipment-EX still load normally.
+10. Install through `tools\dev.ps1 -BuildFlavor Debug`; confirm it creates missing shared REDscript logging declarations and a FABRIC action produces one `FTLog` entry at the expected severity.
 
 Record pass/fail and the relevant log paths in the release notes or issue tracker.

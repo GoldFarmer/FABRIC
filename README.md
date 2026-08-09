@@ -12,7 +12,6 @@ Required:
 - Cyberpunk 2077 with compatible REDscript and RED4ext installations.
 - Equipment-EX, which is FABRIC's saved-outfit authority.
 - Codeware, which provides FABRIC's service lifecycle and error call-site context.
-- Shared REDscript logging declarations at `r6\scripts\Logs.reds`. These are installed once per game, not bundled with FABRIC.
 
 Optional:
 
@@ -47,26 +46,28 @@ Install [psiberx/cp2077-red-hot-tools](https://github.com/psiberx/cp2077-red-hot
 
 Keep Red Hot Tools, REDscript, RED4ext, ArchiveXL, Cyber Engine Tweaks, and the game version mutually compatible according to the Red Hot Tools release notes. Hot reload has known limits: structural changes such as new struct fields or scriptable-system request handlers can require a full game-session restart.
 
-#### Shared REDscript logging declarations
+#### Debug logging declarations
 
-Install the shared global logging declarations from the [REDscript logging reference](https://wiki.redmodding.org/redscript/references-and-examples/logging) once at `r6\scripts\Logs.reds`. FABRIC provides a guarded installer for a missing file:
+Release packages use a no-op logging backend and do not need shared logging declarations. Debug
+builds write diagnostics through the engine `FTLog` APIs, which require the shared global
+declarations from the [REDscript logging reference](https://wiki.redmodding.org/redscript/references-and-examples/logging) at `r6\scripts\Logs.reds`. `tools\dev.ps1 -BuildFlavor Debug` creates that file when it is absent; `-BuildFlavor Release` removes it for a clean release test. The separate guarded installer remains available when needed:
 
 ```powershell
 .\tools\install-logging-api.ps1 -GameDir $env:FABRIC_GAME_DIR
 ```
 
-They expose `LogChannel`, `LogChannelWarning`, `LogChannelError`, `Log`, `LogWarning`, and `LogError`. FABRIC uses the engine `Log` severity functions for diagnostics: they surface one entry in CET's Game Log and persist it to `bin\x64\plugins\cyber_engine_tweaks\gamelog.log`; engine-log errors include Codeware call-site context. FABRIC deliberately does not pair these calls with `LogChannel*`, because both routes write to the same CET pipeline and would duplicate each message. The installer refuses to overwrite an existing shared declaration. This file is a game-level development prerequisite: do not place it under FABRIC or include it in a FABRIC release ZIP, because multiple bundled copies would conflict.
+They expose `LogChannel*`, `Log*`, and `FTLog*` functions. FABRIC's debug backend uses the `FTLog` severity functions once per message and adds Codeware call-site context to errors. The installer refuses to overwrite an existing shared declaration. This file is a game-level development prerequisite: do not place it under FABRIC or include it in a FABRIC release ZIP, because multiple bundled copies would conflict. A Release development install removes this shared file, so do not use that mode while another source mod needs the declarations for debug logging.
 
 Commands are repository-owned PowerShell scripts:
 
 - `tools\verify.ps1` validates project/release structure and enforces REDscript source-quality checks: 120-character line width, no planning markers in source, and removal of the unsupported incremental-cache API. `-RequireTypeCheck` remains reserved for a compiler adapter; use REDscript IDE diagnostics until it is implemented.
-- `tools\dev.ps1 -BuildFlavor Debug -WhatIf` previews the default debug installation. `Debug` installs a generated `FabricBuildProfile.reds` that enables TRACE through ERROR by default; `Release` defaults to INFO/WARN/ERROR while retaining a future runtime override path for support diagnostics.
-- `tools\package.ps1 -BuildFlavor Release` creates the publishable `build\release\FABRIC-<version>-release.zip` with a SHA-256 checksum. `tools\package.ps1 -BuildFlavor Debug` creates the non-publishable `build\debug\FABRIC-<version>-debug.zip`. Packaging extracts the archive and verifies the required FABRIC service and generated build profile are present. Each package contains a `buildFlavor` manifest field, so CET or a future settings UI can display the deployed flavor without parsing the ZIP name.
+- `tools\dev.ps1 -BuildFlavor Debug -WhatIf` previews the default debug installation. `Debug` installs generated `FabricBuildProfile.reds` and `FabricLogBackend.reds` files and creates missing root-level `Logs.reds`; `Release` installs a no-op logging backend and removes that root-level declarations file.
+- `tools\package.ps1 -BuildFlavor Release` creates the publishable `build\release\FABRIC-<version>-release.zip` with a SHA-256 checksum. `tools\package.ps1 -BuildFlavor Debug` creates the non-publishable `build\debug\FABRIC-<version>-debug.zip`. Packaging extracts each archive, verifies the required FABRIC service, generated build profile, and generated logging backend, and rejects a release archive with a native logging call. Each package contains a `buildFlavor` manifest field, so CET or a future settings UI can display the deployed flavor without parsing the ZIP name.
 - `tools\smoke.ps1` opens the versioned in-game test checklist.
 
 The project-level `.redscript` file configures source roots for Redscript IDE. Configure the editor extension with your own game directory. REDscript compilation is ultimately validated by the game/compiler on your local installation.
 
-The build profile is intentionally separate from CET or future Mod Settings controls. A debug build defaults to TRACE, DEBUG, INFO, WARN, and ERROR. A release build defaults to INFO, WARN, and ERROR; `FabricConfig.SetVerboseLoggingEnabled()` can enable TRACE/DEBUG for the current game session when invoked by a support tool. Until a support control is available, use the debug package when verbose logs are required.
+The build profile is intentionally separate from CET or future Mod Settings controls. Release builds contain no native logging calls. Debug builds default to TRACE, DEBUG, INFO, WARN, and ERROR; use a debug package with the shared declarations installed when diagnostics are required.
 
 #### WolvenKit CLI
 

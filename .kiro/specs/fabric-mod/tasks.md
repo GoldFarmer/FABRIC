@@ -89,16 +89,16 @@ Kiro steering files providing navigable reference documentation for all 7 mods u
   Project-level `.redscript` configuration and structural verification are in place. Wire compiler/LSP diagnostics into `verify` after the first compilable Phase 2 module exists; this requires a local REDscript IDE/compiler-capable setup.  
   *Files: `.redscript`, `tools/verify.ps1`*
 
-- [x] **1.5.3 – Implement development install**  
-  Implement `dev` to install unbundled `.reds` sources into the configured game directory under FABRIC's runtime path. Resolve the game path from a developer-local environment variable or ignored local config; never commit an absolute game path. Confirm the command refuses unsafe or missing targets.  
+- [x] **1.5.3 – Implement development install**
+  Implement `dev` to install unbundled `.reds` sources into the configured game directory under FABRIC's runtime path. In Debug, create the root-level shared logging declarations only when absent; in Release, remove that exact declarations file for a clean no-logging-declarations test. Resolve the game path from a developer-local environment variable or ignored local config; never commit an absolute game path. Confirm the command refuses unsafe or missing targets.
   *Files: `tools/dev.ps1`, `.gitignore`*
 
 - [x] **1.5.4 – Add optional watch and hot-reload support**  
   Integrate Red Hot Tools and/or `cp2077-red-cli` watch mode behind an explicit availability check. The base `dev` and `verify` commands must remain usable without either optional helper.  
   *Files: `tools/watch.ps1`, `README.md`*
 
-- [x] **1.5.5 – Implement release staging and packaging**  
-  Validated with the backend source tree: `package -BuildFlavor Release` creates the publishable `FABRIC-0.1.0-release.zip`, and `package -BuildFlavor Debug` creates the non-publishable debug ZIP. Each has a SHA-256 checksum, generated `FabricBuildProfile.reds`, flavor-marked manifest, and extraction validation of the expected game-relative scripts.  
+- [x] **1.5.5 – Implement release staging and packaging**
+  Validated with the backend source tree: `package -BuildFlavor Release` creates the publishable release ZIP, and `package -BuildFlavor Debug` creates the non-publishable debug ZIP. Each has a SHA-256 checksum, generated `FabricBuildProfile.reds`, flavor-marked manifest, and extraction validation of the expected game-relative scripts.
   *Files: `tools/package.ps1`, `release/manifest-template.json`*
 
 - [x] **1.5.6 – Establish the WolvenKit asset workflow**  
@@ -123,8 +123,8 @@ Kiro steering files providing navigable reference documentation for all 7 mods u
   Implement `FabricConfig` as a Codeware `ScriptableService`. Resolve TRACE/DEBUG from the generated build-profile default and allow an in-session override through `SetVerboseLoggingEnabled(enabled)`. Release defaults verbose logging off; debug defaults it on.  
   *File: `src/FABRIC/core/FabricConfig.reds`*
 
-- [x] **2.3 – FabricLog helper**  
-  Implement `FabricLog` as the sole FABRIC logging wrapper. Gate TRACE/DEBUG through `FabricConfig`; always retain INFO/WARN/ERROR; emit each permitted message once through the engine `Log` severity functions with standardized prefixes. Error engine-log entries include Codeware `GetStackTrace` call-site context. All other FABRIC modules use this wrapper, never raw log calls.  
+- [x] **2.3 – FabricLog helper**
+  Implement `FabricLog` as the sole FABRIC logging wrapper. Release builds use a no-op generated backend with no native logging references. Debug builds use an `FTLog` backend; gate TRACE/DEBUG through `FabricConfig`, retain INFO/WARN/ERROR, and include Codeware `GetStackTrace` call-site context for errors. All other FABRIC modules use this wrapper, never raw log calls.
   *File: `src/FABRIC/diagnostics/FabricLog.reds`*
 
 - [x] **2.4 – FabricService skeleton**  
@@ -216,11 +216,13 @@ Kiro steering files providing navigable reference documentation for all 7 mods u
   Validated FABRIC's `OutfitSystem.GetInstance()`, `GetOutfits()`, `GetOutfitParts(CName)`, and
   `OutfitPart.GetItemID()` contract against the installed Equipment-EX source. The conditionally
   compiled `FabricOutfitReader` owns this API boundary; without the module, it reports unavailable
-  data and `FabricService` resets its cache, logs an actionable installation warning, and leaves
+  data and `FabricService` resets its cache, emits an actionable installation warning in debug builds, and leaves
   outfit-backed presentation disabled without a vanilla fallback. An unavailable `OutfitSystem`
   follows the same safe empty-cache path. After player attachment, FABRIC shows one eight-second
   vanilla HUD notice with the dependency and restart action. FABRIC neither declares nor packages
-  the shared game-level REDscript logging declarations.
+  the debug-only shared game-level REDscript logging declarations in its packages; the Debug
+  development installer creates the root-level file only when absent, while the Release installer
+  removes it for a clean test.
 
 - [x] **7.2 – WEAVE sync compatibility**  
   The installed WEAVE sync implementation has no public post-sync boundary: `OutfitSyncSystem.OnPlayerAttach()` invokes private restore logic without a completion event, callback, or blackboard signal. FABRIC does not directly annotate WEAVE's scripted class and does not claim immediate reconciliation after JSON sync. Record-keyed presentation remains compatible after FABRIC's next supported reconciliation; the limitation and requested WEAVE extension are documented in `docs/weave-sync-limitations.md`.
@@ -254,7 +256,7 @@ Kiro steering files providing navigable reference documentation for all 7 mods u
   The current Kiro requirements have a recorded acceptance pass in `docs/acceptance-criteria.md`. The only constraint is the documented WEAVE JSON-sync limitation; no release-blocking failure remains.
 
 - [x] **8.5 – Release packaging**  
-  `package -BuildFlavor Release` creates the game-root-relative FABRIC runtime archive, manifest, README, MIT `LICENSE`, and checksum. Packaging extracts the archive and verifies the service and generated build profile. The generated release profile sets verbose logging to `false` by default.
+  `package -BuildFlavor Release` creates the game-root-relative FABRIC runtime archive, manifest, README, MIT `LICENSE`, and checksum. Packaging extracts the archive and verifies the service, generated build profile, and selected logging backend; it rejects a release archive containing a native logging call. The generated release profile sets verbose logging to `false` by default. The current publishable artifact is `build/release/FABRIC-0.1.1-release.zip` (SHA-256 `260e38111ecbe1ad0b5d27e588ebaa6dc1066c661b3f2d78b04529663a1bfa7b`).
 
 ---
 

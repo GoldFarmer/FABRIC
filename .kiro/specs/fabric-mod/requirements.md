@@ -134,10 +134,12 @@ Equipment-EX and Codeware are hard runtime dependencies. `FabricOutfitReader` SH
 conditional Equipment-EX API boundary and safely report an unavailable `OutfitSystem` to
 `FabricService`, which leaves its index empty and presentation disabled with an actionable
 diagnostic. After player attachment, FABRIC SHALL show one eight-second vanilla HUD notice that
-identifies Equipment-EX and the required restart; detailed diagnostics remain in the game log.
+identifies Equipment-EX and the required restart; detailed diagnostics are available in debug builds.
 Codeware owns FABRIC's registered `ScriptableService` lifecycle, which the native
-post-player-attachment bridge uses for the initial rebuild. FABRIC diagnostics require the shared
-game-level REDscript logging declarations, which are installed once outside the FABRIC package.
+post-player-attachment bridge uses for the initial rebuild. Debug FABRIC diagnostics require the
+shared game-level REDscript logging declarations. The Debug development install SHALL create the
+root-level declarations file only when absent; the Release development install SHALL remove that
+exact file for a clean release test. Neither package SHALL include the declarations.
 WEAVE is optional; FABRIC continues to work without it, and presents WEAVE-restored associations
 after FABRIC's next supported reconciliation boundary. Mod Settings is an optional presentation
 dependency; all direct references to its module, annotations, and API SHALL be enclosed by
@@ -164,13 +166,13 @@ Large inventories SHALL scroll without a measurable framerate impact.
 Cache failures and invalid item identities MUST NOT crash or block the wardrobe UI. Public item queries SHALL return `false`, `0`, or an empty array for invalid or unavailable data.
 
 **Requirement 8.2**  
-During an authoritative full rebuild, FABRIC SHALL validate that each rebuilt outfit is represented in both the exact-item and catalog-record indexes. If validation fails, FABRIC SHALL log a diagnostic and retry the rebuild once; it SHALL not poll or scan outfits during card rendering.
+During an authoritative full rebuild, FABRIC SHALL validate that each rebuilt outfit is represented in both the exact-item and catalog-record indexes. If validation fails, FABRIC SHALL retry the rebuild once and emit a diagnostic in debug builds; it SHALL not poll or scan outfits during card rendering.
 
 **Requirement 8.3**  
-TRACE and DEBUG diagnostic logging SHALL be gated behind the generated build profile or an explicit session override. Release defaults them off; Debug defaults them on. INFO, WARN, and ERROR remain enabled in every build.
+Release builds SHALL contain no native logging calls and FABRIC diagnostics SHALL be no-ops. Debug builds SHALL use the generated logging backend and its shared root-level declarations; TRACE and DEBUG are gated behind the generated build profile or an explicit session override, while INFO, WARN, and ERROR remain enabled.
 
 **Requirement 8.4**  
-`FabricLog` SHALL emit each permitted diagnostic once through the engine `Log` family (`Log`, `LogWarning`, or `LogError`) with a stable `[FABRIC]` prefix. This route SHALL provide both CET Game Log visibility and the `gamelog.log` sink; error entries SHALL include Codeware `GetStackTrace` call-site context.
+`FabricLog` SHALL retain a stable API in every build. The debug backend SHALL emit each permitted diagnostic once through `FTLog`, `FTLogWarning`, or `FTLogError` with a stable `[FABRIC]` prefix; error entries SHALL include Codeware `GetStackTrace` call-site context. The release backend SHALL not reference native logging functions.
 
 ---
 

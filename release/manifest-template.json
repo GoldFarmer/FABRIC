@@ -1,12 +1,11 @@
 {
   "name": "FABRIC",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "game": "Cyberpunk 2077",
   "runtime": "REDscript + RED4ext",
   "dependencies": {
     "equipmentEx": "required",
     "codeware": "required",
-    "sharedRedscriptLoggingDeclarations": "required",
     "weave": "optional",
     "modSettings": "optional"
   }

@@ -9,13 +9,14 @@ FABRIC supports Equipment-EX Wardrobe, player Inventory and stash, and Virtual A
 - Cyberpunk 2077 with compatible REDscript and RED4ext installations
 - Equipment-EX
 - Codeware
-- Shared REDscript logging declarations installed at `r6\scripts\Logs.reds`
 
 Mod Settings is optional and provides controls for the marker icon, color, and corner. Without it, FABRIC uses the shipped defaults. WEAVE is optional; FABRIC refreshes its cache at supported game boundaries, but WEAVE does not currently provide a public event for immediate JSON-sync reconciliation.
 
 ## Installation
 
 Extract the release ZIP into the Cyberpunk 2077 game directory.
+
+No shared `r6\scripts\Logs.reds` file is required or included for the release build.
 
 ## Project links
 

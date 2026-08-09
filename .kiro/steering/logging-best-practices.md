@@ -14,15 +14,18 @@ Use `FabricLog` for all FABRIC runtime diagnostics. Do not call `Log`, `LogWarni
 - `WARN` — unexpected but recoverable conditions. Include the condition, affected values, and recovery or fallback taken.
 - `ERROR` — unrecoverable operation failures. Include the failed operation, relevant non-sensitive values, and player-visible consequence or required recovery.
 
-`FabricLog` uses the shared engine `Log`, `LogWarning`, and `LogError` APIs and writes all entries with the `FABRIC` tag plus a standardized `[TRACE]`, `[DEBUG]`, `[INFO]`, `[WARN]`, or `[ERROR]` prefix. `LogError` includes Codeware call-site context. The native declarations belong once in a shared root-level `r6\\scripts\\Logs.reds` file and must never be declared or packaged by FABRIC.
+`FabricLog` is a stable façade selected by build flavor. Release builds use a no-op backend and must contain no direct native logging calls. Debug builds use `FTLog`, `FTLogWarning`, and `FTLogError` once per message with the `FABRIC` tag plus a standardized `[TRACE]`, `[DEBUG]`, `[INFO]`, `[WARN]`, or `[ERROR]` prefix; debug errors include Codeware call-site context. The native declarations belong once in a shared root-level `r6\\scripts\\Logs.reds` file and must never be packaged by FABRIC. The development installer creates that file only for a Debug install when it is absent, and removes it for a Release install.
 
 ## Where to inspect FABRIC logs
 
-- During a running game, treat CET's **Game Log** panel as the authoritative live view. Filter or search for `[FABRIC]`.
-- FABRIC's engine-log sink is `Cyberpunk 2077\\bin\\x64\\plugins\\cyber_engine_tweaks\\gamelog.log`.
-- `gamelog.log` is buffered during a running game: a game-script call may coincide with a flush but does not guarantee one, and the active file can temporarily end mid-record. Do not treat a missing or incomplete live-session line as proof that FABRIC did not run.
-- `scripting.log` is for CET/Lua scripting output and is not the authoritative sink for FABRIC REDscript diagnostics.
+- Release builds intentionally produce no FABRIC runtime diagnostics.
+- During a debug run, treat CET's **Game Log** panel as the authoritative live view. Filter or search for `[FABRIC]`.
+- The debug `FTLog` sink is configured by the installed logging runtime; verify its current file location from that runtime's documentation before using absence of a line as diagnostic evidence.
 - `Cyberpunk 2077\\r6\\logs\\redscript_rCURRENT.log` is the REDscript compiler log. Use it to diagnose compilation and source-loading failures, not FABRIC runtime behavior.
+
+### CET Lua versus REDscript output
+
+CET's **Game Log** aggregates output from CET Lua mods as well as REDscript-backed logging. A Lua mod can emit through CET's Lua facilities (for example, `print`) without any root-level `r6\\scripts\\Logs.reds` file. That file only supplies global native function declarations to REDscript sources such as `FTLog`, `LogWarning`, and `LogChannel`; it neither enables nor disables CET Lua output. When diagnosing a Game Log line, first identify whether its emitting mod is a CET Lua mod or a REDscript mod before inferring its prerequisites or file sink.
 
 ## Entry and exit logging
 
@@ -36,6 +39,6 @@ Keep parameters safe to log: do not emit credentials, tokens, player-private con
 
 ## Failure handling
 
-Use `WARN` when FABRIC can continue safely, such as a missing optional integration, a stale cache that will be rebuilt, or a recoverable malformed reference. Use `ERROR` only when the requested operation cannot continue safely; return the documented safe default or disable the affected FABRIC feature without crashing the host UI.
+Use `WARN` when FABRIC can continue safely, such as a missing optional integration, a stale cache that will be rebuilt, or a recoverable malformed reference. Use `ERROR` only when the requested operation cannot continue safely; return the documented safe default or disable the affected FABRIC feature without crashing the host UI. These diagnostics are observable in debug builds only.
 
 Do not use task numbers, specification phases, or temporary implementation narration in log messages. Messages must describe the runtime condition and consequence for a future developer or player support log.
