@@ -1,0 +1,7 @@
+# Developer-local game configuration and generated artifacts
+.fabric.local.json
+.reds-ready
+build/
+
+# Editor state
+.vscode/

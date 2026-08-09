@@ -1,0 +1,1 @@
+Use this website to manually download VS plugins without using Marketplace: https://cypherpunksamurai.github.io/vsix-downloader-webui/

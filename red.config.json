@@ -1,0 +1,13 @@
+{
+  "name": "FABRIC",
+  "version": "0.1.0",
+  "license": false,
+  "stage": "build/stage/red-cli",
+  "scripts": {
+    "redscript": {
+      "debounceTime": 3000,
+      "src": "src",
+      "output": "r6\\scripts\\"
+    }
+  }
+}

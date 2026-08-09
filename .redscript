@@ -1,0 +1,6 @@
+# Project configuration consumed by Redscript IDE / language-server integrations.
+source_roots = ["src"]
+
+[format]
+indent = 2
+max_width = 120
