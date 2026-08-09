@@ -41,35 +41,20 @@ Nexus hosts the release download.
 [*]Lets Mod Settings users choose the marker icon, color, and card corner.
 [/list]
 
-[size=4][b]Requirements[/b][/size]
+[size=4][b]Requirements and credits[/b][/size]
 [b]Required[/b]
 [list]
-[*]Cyberpunk 2077 with compatible REDscript and RED4ext installations.
-[*]Equipment-EX.
-[*]Codeware.
+[*]Cyberpunk 2077 with [url=https://www.nexusmods.com/cyberpunk2077/mods/2380]RED4ext[/url] by [url=https://www.nexusmods.com/profile/WopsS]WopsS[/url] and [url=https://www.nexusmods.com/cyberpunk2077/mods/1511]redscript[/url] by [url=https://www.nexusmods.com/profile/jac3km4]jac3km4[/url].
+[*][url=https://www.nexusmods.com/cyberpunk2077/mods/6945]Equipment-EX[/url] by [url=https://www.nexusmods.com/profile/psiberx]psiberx[/url] and [url=https://next.nexusmods.com/profile/djkovrik]DJ_Kovrik[/url].
+[*][url=https://www.nexusmods.com/cyberpunk2077/mods/7780]Codeware[/url] by [url=https://www.nexusmods.com/profile/psiberx]psiberx[/url].
 [*]Shared REDscript logging declarations at [b]r6\scripts\Logs.reds[/b].
 [/list]
 
-[b]Optional[/b]
+[b]Optional / compatible[/b]
 [list]
-[*]Mod Settings, for marker icon, color, and corner preferences.
-[*]WEAVE. FABRIC works without it.
-[/list]
-
-[size=4][b]Related mods and credits[/b][/size]
-[b]Required runtime[/b]
-[list]
-[*][url=https://www.nexusmods.com/cyberpunk2077/mods/2380]RED4ext[/url] by [url=https://www.nexusmods.com/profile/WopsS]WopsS[/url]
-[*][url=https://www.nexusmods.com/cyberpunk2077/mods/1511]redscript[/url] by [url=https://www.nexusmods.com/profile/jac3km4]jac3km4[/url]
-[*][url=https://www.nexusmods.com/cyberpunk2077/mods/6945]Equipment-EX[/url] by [url=https://www.nexusmods.com/profile/psiberx]psiberx[/url] and [url=https://next.nexusmods.com/profile/djkovrik]DJ_Kovrik[/url]
-[*][url=https://www.nexusmods.com/cyberpunk2077/mods/7780]Codeware[/url] by [url=https://www.nexusmods.com/profile/psiberx]psiberx[/url]
-[/list]
-
-[b]Optional and compatible companion mods[/b]
-[list]
-[*][url=https://www.nexusmods.com/cyberpunk2077/mods/4885]Mod Settings[/url] by [url=https://www.nexusmods.com/profile/jackhumbert]Jack Humbert[/url]
-[*][url=https://www.nexusmods.com/cyberpunk2077/mods/28273]WEAVE - Equipment-EX Extension[/url] by [url=https://www.nexusmods.com/profile/ApoKrytia]ApoKrytia[/url]
-[*][url=https://www.nexusmods.com/cyberpunk2077/mods/2987]Virtual Atelier[/url] by [url=https://www.nexusmods.com/profile/Pacings]Pacings[/url] and [url=https://next.nexusmods.com/profile/djkovrik]djkovrik[/url]
+[*][url=https://www.nexusmods.com/cyberpunk2077/mods/4885]Mod Settings[/url] by [url=https://www.nexusmods.com/profile/jackhumbert]Jack Humbert[/url], for marker icon, color, and corner preferences.
+[*][url=https://www.nexusmods.com/cyberpunk2077/mods/28273]WEAVE - Equipment-EX Extension[/url] by [url=https://www.nexusmods.com/profile/ApoKrytia]ApoKrytia[/url]. FABRIC works without it.
+[*][url=https://www.nexusmods.com/cyberpunk2077/mods/2987]Virtual Atelier[/url] by [url=https://www.nexusmods.com/profile/Pacings]Pacings[/url] and [url=https://next.nexusmods.com/profile/djkovrik]djkovrik[/url]. Supported but not required.
 [/list]
 
 The shared REDscript logging declarations are a game-level file installed at [b]r6\scripts\Logs.reds[/b], not a separately published Nexus mod.
