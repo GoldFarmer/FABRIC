@@ -36,25 +36,21 @@ New-Item -ItemType Directory -Path $stage -Force | Out-Null
 $scriptsStage = Join-Path $stage 'r6\scripts\FABRIC'
 New-Item -ItemType Directory -Path $scriptsStage -Force | Out-Null
 Copy-Item -Path (Join-Path $fabricSource '*') -Destination $scriptsStage -Recurse -Force
-$manifest | Add-Member -NotePropertyName 'buildFlavor' -NotePropertyValue $flavor -Force
-$manifest | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $stage 'FABRIC-manifest.json')
 Copy-Item -LiteralPath $profileTemplate -Destination (Join-Path $scriptsStage 'FabricBuildProfile.reds') -Force
 Copy-Item -LiteralPath $loggingTemplate -Destination (Join-Path $scriptsStage 'diagnostics\FabricLogBackend.reds') -Force
-if (Test-Path -LiteralPath (Join-Path $root 'README.md')) {
-  Copy-Item -LiteralPath (Join-Path $root 'README.md') -Destination (Join-Path $stage 'README.md') -Force
-}
-if (Test-Path -LiteralPath (Join-Path $root 'LICENSE')) {
-  Copy-Item -LiteralPath (Join-Path $root 'LICENSE') -Destination (Join-Path $stage 'LICENSE') -Force
-}
 
 New-Item -ItemType Directory -Path $release -Force | Out-Null
 if (Test-Path -LiteralPath $packagePath) { Remove-Item -LiteralPath $packagePath -Force }
-Compress-Archive -Path (Join-Path $stage '*') -DestinationPath $packagePath -Force
+Compress-Archive -Path (Join-Path $stage 'r6') -DestinationPath $packagePath -Force
 $checksum = (Get-FileHash -LiteralPath $packagePath -Algorithm SHA256).Hash.ToLowerInvariant()
 Set-Content -LiteralPath "$packagePath.sha256" -Value "$checksum  $packageName" -NoNewline
 
 $verifyPath = Join-Path $stage '_verify'
 Expand-Archive -LiteralPath $packagePath -DestinationPath $verifyPath -Force
+$topLevel = @(Get-ChildItem -LiteralPath $verifyPath -Force)
+if ($topLevel.Count -ne 1 -or $topLevel[0].Name -ne 'r6' -or -not $topLevel[0].PSIsContainer) {
+  throw 'Package validation failed: archive must contain only the game-root r6 directory.'
+}
 if (-not (Test-Path -LiteralPath (Join-Path $verifyPath 'r6\scripts\FABRIC\core\FabricService.reds'))) {
   throw 'Package validation failed: expected FABRIC service source is missing.'
 }

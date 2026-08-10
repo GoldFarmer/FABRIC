@@ -14,7 +14,7 @@ Mod Settings is optional and provides controls for the marker icon, color, and c
 
 ## Installation
 
-Extract the release ZIP into the Cyberpunk 2077 game directory.
+Extract the entire release ZIP into the Cyberpunk 2077 game directory. The archive contains only an `r6` folder, which merges into the game's existing `r6` folder.
 
 No shared `r6\scripts\Logs.reds` file is required or included for the release build.
 

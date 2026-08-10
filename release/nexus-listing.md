@@ -18,7 +18,7 @@ FABRIC shows which saved outfits use each clothing item. It adds a configurable 
 [size=4][b]Installation instructions[/b][/size]
 [list=1]
 [*]Install the required dependencies listed below.
-[*]Extract the FABRIC release ZIP into the Cyberpunk 2077 game directory, preserving its folder structure.
+[*]Extract the entire FABRIC release ZIP into the Cyberpunk 2077 game directory. The archive contains only an [b]r6[/b] folder, which merges into the game's existing [b]r6[/b] folder.
 [*]Start the game. FABRIC builds its outfit-association cache after the player loads.
 [/list]
 The release build does not require or include a shared [i]Logs.reds[/i] file.

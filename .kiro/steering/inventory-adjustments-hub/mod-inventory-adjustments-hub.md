@@ -16,6 +16,8 @@ Inventory Adjustments Hub (IAH) 1.3 is an inventory, crafting, and tooltip prese
 
 The mod is largely refresh-driven: it attaches its own Ink containers during a host controller's `OnInitialize`, then updates their text, icons, color, visibility, and layout after the host's normal card or tooltip update has completed. The added container fields retain those widgets across subsequent refreshes; this avoids re-creating them for every item binding.
 
+On the base `InventoryItemDisplayController`, IAH uses `@wrapMethod` (not `@replaceMethod`) for both `OnInitialize()` and `NewRefreshUI(UIInventoryItem)`, and calls `wrappedMethod()` in each. Its initializer then runs `AdjustCommonLayout` and `AdjustClothingLayout`; its refresh wrapper only applies the configured clothing-mod visibility rule to `m_commonModsRoot`. The clothing-layout path can create a separate `tagsLabel` under `container/rightContainer/wrapper`, using the vanilla loop-bordered mappin atlas and `icon_officer` texture part. It does not remove or replace the card's root `container`.
+
 ## Game integration flows
 
 | Trigger / host flow | Why it is intercepted | IAH behavior | Result |

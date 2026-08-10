@@ -98,7 +98,7 @@ Kiro steering files providing navigable reference documentation for all 7 mods u
   *Files: `tools/watch.ps1`, `README.md`*
 
 - [x] **1.5.5 – Implement release staging and packaging**
-  Validated with the backend source tree: `package -BuildFlavor Release` creates the publishable release ZIP, and `package -BuildFlavor Debug` creates the non-publishable debug ZIP. Each has a SHA-256 checksum, generated `FabricBuildProfile.reds`, flavor-marked manifest, and extraction validation of the expected game-relative scripts.
+  Validated with the backend source tree: `package -BuildFlavor Release` creates the publishable release ZIP, and `package -BuildFlavor Debug` creates the non-publishable debug ZIP. Each has a SHA-256 checksum, generated `FabricBuildProfile.reds`, and extraction validation that the archive contains only the expected game-root `r6` directory and scripts.
   *Files: `tools/package.ps1`, `release/manifest-template.json`*
 
 - [x] **1.5.6 – Establish the WolvenKit asset workflow**  
@@ -256,7 +256,7 @@ Kiro steering files providing navigable reference documentation for all 7 mods u
   The current Kiro requirements have a recorded acceptance pass in `docs/acceptance-criteria.md`. The only constraint is the documented WEAVE JSON-sync limitation; no release-blocking failure remains.
 
 - [x] **8.5 – Release packaging**  
-  `package -BuildFlavor Release` creates the game-root-relative FABRIC runtime archive, manifest, README, MIT `LICENSE`, and checksum. Packaging extracts the archive and verifies the service, generated build profile, and selected logging backend; it rejects a release archive containing a native logging call. The generated release profile sets verbose logging to `false` by default. The current publishable artifact is `build/release/FABRIC-0.1.1-release.zip` (SHA-256 `260e38111ecbe1ad0b5d27e588ebaa6dc1066c661b3f2d78b04529663a1bfa7b`).
+  `package -BuildFlavor Release` creates a game-root-relative FABRIC runtime archive containing only `r6` and its checksum. Packaging extracts the archive and verifies the top-level layout, service, generated build profile, and selected logging backend; it rejects a release archive containing a native logging call. The generated release profile sets verbose logging to `false` by default. The current publishable artifact is `build/release/FABRIC-0.1.2-release.zip` (SHA-256 `9e485665d90c1089198f515830b6a3051d9f5dc5ccba6f9be6e4d410b6d72582`).
 
 ---
 

@@ -62,7 +62,7 @@ Commands are repository-owned PowerShell scripts:
 
 - `tools\verify.ps1` validates project/release structure and enforces REDscript source-quality checks: 120-character line width, no planning markers in source, and removal of the unsupported incremental-cache API. `-RequireTypeCheck` remains reserved for a compiler adapter; use REDscript IDE diagnostics until it is implemented.
 - `tools\dev.ps1 -BuildFlavor Debug -WhatIf` previews the default debug installation. `Debug` installs generated `FabricBuildProfile.reds` and `FabricLogBackend.reds` files and creates missing root-level `Logs.reds`; `Release` installs a no-op logging backend and removes that root-level declarations file.
-- `tools\package.ps1 -BuildFlavor Release` creates the publishable `build\release\FABRIC-<version>-release.zip` with a SHA-256 checksum. `tools\package.ps1 -BuildFlavor Debug` creates the non-publishable `build\debug\FABRIC-<version>-debug.zip`. Packaging extracts each archive, verifies the required FABRIC service, generated build profile, and generated logging backend, and rejects a release archive with a native logging call. Each package contains a `buildFlavor` manifest field, so CET or a future settings UI can display the deployed flavor without parsing the ZIP name.
+- `tools\package.ps1 -BuildFlavor Release` creates the publishable `build\release\FABRIC-<version>-release.zip` with a SHA-256 checksum. `tools\package.ps1 -BuildFlavor Debug` creates the non-publishable `build\debug\FABRIC-<version>-debug.zip`. Packaging extracts each archive, verifies that it contains only the game-root `r6` directory, validates the required FABRIC service, generated build profile, and generated logging backend, and rejects a release archive with a native logging call.
 - `tools\smoke.ps1` opens the versioned in-game test checklist.
 
 The project-level `.redscript` file configures source roots for Redscript IDE. Configure the editor extension with your own game directory. REDscript compilation is ultimately validated by the game/compiler on your local installation.
@@ -77,7 +77,7 @@ The current source tree does not yet contain package assets, but asset handling 
 
 ## Release layout
 
-The release ZIP is game-root-relative and contains `r6\scripts\FABRIC\...`, `FABRIC-manifest.json`, this README, and `LICENSE`. Extract it into the Cyberpunk 2077 game directory.
+The release ZIP contains only the game-root `r6` directory. Extract the entire ZIP into the Cyberpunk 2077 game directory so that FABRIC installs at `r6\scripts\FABRIC\...`. The README and MIT license are available in this repository rather than copied into the game directory.
 
 ## License and third-party terms
 
