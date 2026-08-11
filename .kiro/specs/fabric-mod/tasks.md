@@ -256,7 +256,7 @@ Kiro steering files providing navigable reference documentation for all 7 mods u
   The current Kiro requirements have a recorded acceptance pass in `docs/acceptance-criteria.md`. The only constraint is the documented WEAVE JSON-sync limitation; no release-blocking failure remains.
 
 - [x] **8.5 – Release packaging**  
-  `package -BuildFlavor Release` creates a game-root-relative FABRIC runtime archive containing only `r6` and its checksum. Packaging extracts the archive and verifies the top-level layout, service, generated build profile, and selected logging backend; it rejects a release archive containing a native logging call. The generated release profile sets verbose logging to `false` by default. The current publishable artifact is `build/release/FABRIC-0.1.2-release.zip` (SHA-256 `9e485665d90c1089198f515830b6a3051d9f5dc5ccba6f9be6e4d410b6d72582`).
+  `package -BuildFlavor Release` creates a game-root-relative FABRIC runtime archive containing only `r6` and its checksum. Packaging extracts the archive and verifies the top-level layout, service, generated build profile, selected logging backend, and the README and MIT `LICENSE` under `r6/scripts/FABRIC`; it rejects a release archive containing a native logging call. The generated release profile sets verbose logging to `false` by default. The current publishable artifact is `build/release/FABRIC-0.1.2-release.zip` (SHA-256 `0a5972c6d6b44375200ff430225dd3efca66b2979bc78118f41331d13647795a`).
 
 ---
 

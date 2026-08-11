@@ -38,6 +38,8 @@ New-Item -ItemType Directory -Path $scriptsStage -Force | Out-Null
 Copy-Item -Path (Join-Path $fabricSource '*') -Destination $scriptsStage -Recurse -Force
 Copy-Item -LiteralPath $profileTemplate -Destination (Join-Path $scriptsStage 'FabricBuildProfile.reds') -Force
 Copy-Item -LiteralPath $loggingTemplate -Destination (Join-Path $scriptsStage 'diagnostics\FabricLogBackend.reds') -Force
+Copy-Item -LiteralPath (Join-Path $root 'README.md') -Destination (Join-Path $scriptsStage 'README.md') -Force
+Copy-Item -LiteralPath (Join-Path $root 'LICENSE') -Destination (Join-Path $scriptsStage 'LICENSE') -Force
 
 New-Item -ItemType Directory -Path $release -Force | Out-Null
 if (Test-Path -LiteralPath $packagePath) { Remove-Item -LiteralPath $packagePath -Force }
@@ -59,6 +61,10 @@ if (-not (Test-Path -LiteralPath (Join-Path $verifyPath 'r6\scripts\FABRIC\Fabri
 }
 if (-not (Test-Path -LiteralPath (Join-Path $verifyPath 'r6\scripts\FABRIC\diagnostics\FabricLogBackend.reds'))) {
   throw 'Package validation failed: expected generated logging backend is missing.'
+}
+if (-not (Test-Path -LiteralPath (Join-Path $verifyPath 'r6\scripts\FABRIC\README.md')) -or
+  -not (Test-Path -LiteralPath (Join-Path $verifyPath 'r6\scripts\FABRIC\LICENSE'))) {
+  throw 'Package validation failed: expected FABRIC documentation is missing.'
 }
 if ($flavor -eq 'release') {
   $nativeLogCalls = Get-ChildItem -LiteralPath (Join-Path $verifyPath 'r6\scripts\FABRIC') -Filter '*.reds' -Recurse |

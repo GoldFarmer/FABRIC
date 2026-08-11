@@ -77,7 +77,7 @@ The current source tree does not yet contain package assets, but asset handling 
 
 ## Release layout
 
-The release ZIP contains only the game-root `r6` directory. Extract the entire ZIP into the Cyberpunk 2077 game directory so that FABRIC installs at `r6\scripts\FABRIC\...`. The README and MIT license are available in this repository rather than copied into the game directory.
+The release ZIP contains only the game-root `r6` directory. Extract the entire ZIP into the Cyberpunk 2077 game directory so that FABRIC installs at `r6\scripts\FABRIC\...`. The bundled README and MIT license are kept inside that FABRIC directory, not in the game root.
 
 ## License and third-party terms
 
