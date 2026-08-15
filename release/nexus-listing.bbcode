@@ -1,0 +1,91 @@
+[size=5][b]◈ FABRIC // WARDROBE RELATIONSHIP OVERLAY ◈[/b][/size]
+
+[b]What does FABRIC do?[/b]
+
+Night City runs on appearances. FABRIC tells you when a clothing item is already tied to one of your saved outfits—before you lose track of it.
+
+It adds a small configurable marker to associated clothing cards, shows how many outfits use that item, and adds the matching outfit names to the normal item tooltip.
+
+[b]Why use it?[/b]
+
+When your wardrobe reaches hundreds of pieces and dozens of saved looks, it becomes easy to forget which jacket, mask, or pair of boots belongs to which fit. FABRIC keeps those connections visible without changing how Equipment-EX manages your wardrobe.
+
+[size=4][b]◈ QUICK READ // FEATURES ◈[/b][/size]
+
+[list]
+[*][b]Outfit markers[/b] — See immediately when an item is used by one or more saved outfits.
+[*][b]Usage count[/b] — The marker displays the number of outfits associated with that exact item.
+[*][b]Tooltip intelligence[/b] — Hover an item to see an [b]Outfits:[/b] list of every saved look that references it.
+[*][b]Precise duplicate handling[/b] — Wardrobe, Backpack, and stash views mark only the actual owned item instance used by an outfit.
+[*][b]Virtual Atelier awareness[/b] — Store cards recognize matching clothing records, even when the store does not expose an owned item instance.
+[*][b]Configurable presentation[/b] — With Mod Settings installed, choose the marker icon, color, and card corner.
+[*][b]Lightweight by design[/b] — FABRIC uses a cached association index; it does not scan every outfit while cards are rendering.
+[/list]
+
+[size=4][b]◈ PRODUCT BRIEF // FABRIC SYSTEM ◈[/b][/size]
+
+[color=#7DFF9B][b]PERSONAL WARDROBE MEMORY LAYER — ACTIVE[/b][/color]
+
+Your closet is not a pile of assets. It is a network of identities: the coat that completes your corpo look, the visor reserved for a specific run, the boots that belong to exactly one dangerous night out.
+
+FABRIC maps those connections and surfaces them where they matter: on the item card in front of you.
+
+No new wardrobe manager. No replacement UI. No background polling. Just a clean visual signal that says: [i]this piece is already part of the pattern.[/i]
+
+[size=4][b]◈ SUPPORTED VIEWS ◈[/b][/size]
+
+[list]
+[*]Equipment-EX Wardrobe
+[*]Player Backpack and stash
+[*]Virtual Atelier catalog cards
+[*]Standard item tooltips in those views
+[/list]
+
+[size=4][b]◈ REQUIREMENTS & COMPATIBILITY ◈[/b][/size]
+
+[b]Required[/b]
+[list]
+[*]Cyberpunk 2077 with [url=https://www.nexusmods.com/cyberpunk2077/mods/2380]RED4ext[/url] by [url=https://www.nexusmods.com/profile/WopsS]WopsS[/url].
+[*][url=https://www.nexusmods.com/cyberpunk2077/mods/1511]redscript[/url] by [url=https://www.nexusmods.com/profile/jac3km4]jac3km4[/url].
+[*][url=https://www.nexusmods.com/cyberpunk2077/mods/6945]Equipment-EX[/url] by [url=https://www.nexusmods.com/profile/psiberx]psiberx[/url] and [url=https://next.nexusmods.com/profile/djkovrik]DJ_Kovrik[/url].
+[*][url=https://www.nexusmods.com/cyberpunk2077/mods/7780]Codeware[/url] by [url=https://www.nexusmods.com/profile/psiberx]psiberx[/url].
+[/list]
+
+[b]Optional / compatible[/b]
+[list]
+[*][url=https://www.nexusmods.com/cyberpunk2077/mods/4885]Mod Settings[/url] by [url=https://www.nexusmods.com/profile/jackhumbert]Jack Humbert[/url], for marker icon, color, and corner preferences.
+[*][url=https://www.nexusmods.com/cyberpunk2077/mods/28273]WEAVE — Equipment-EX Extension[/url] by [url=https://www.nexusmods.com/profile/ApoKrytia]ApoKrytia[/url]. FABRIC works without it.
+[*][url=https://www.nexusmods.com/cyberpunk2077/mods/2987]Virtual Atelier[/url] by [url=https://www.nexusmods.com/profile/Pacings]Pacings[/url] and [url=https://next.nexusmods.com/profile/djkovrik]DJ_Kovrik[/url]. Supported, not required.
+[/list]
+
+[size=4][b]◈ INSTALLATION ◈[/b][/size]
+
+[list=1]
+[*]Install the required dependencies.
+[*]Extract the entire FABRIC ZIP into the Cyberpunk 2077 game directory.
+[*]The archive contains only an [b]r6[/b] folder; merge it with the game's existing [b]r6[/b] folder.
+[*]Load a save. FABRIC builds its relationship map after the player attaches.
+[/list]
+
+The release build does not require or include a shared [i]Logs.reds[/i] file.
+
+[size=4][b]◈ KNOWN BEHAVIOR ◈[/b][/size]
+
+FABRIC refreshes its data after normal outfit save/delete actions and game load. WEAVE JSON sync remains compatible, but WEAVE does not currently expose a public completion event for an immediate post-sync refresh.
+
+[size=4][b]◈ PROJECT LINKS ◈[/b][/size]
+
+[list]
+[*][url=https://github.com/GoldFarmer/FABRIC]Source code and documentation[/url]
+[*][url=https://github.com/GoldFarmer/FABRIC/issues]Report a bug or compatibility issue[/url]
+[/list]
+
+[size=4][b]◈ SHOUT OUTS ◈[/b][/size]
+
+Thanks to the authors of the required and companion mods listed above, and to the REDmodding community for the tools and documentation that make Cyberpunk 2077 modding possible.
+
+[size=4][b]◈ DEVELOPMENT DISCLOSURE ◈[/b][/size]
+
+FABRIC was developed using Kiro IDE with assistance from OpenAI Codex. AI was used as a coding and documentation collaborator for research, implementation drafts, and testing support. GoldFarmer directed the work, reviewed changes, and performed in-game validation.
+
+[color=#7DFF9B][b]Keep the fit. Keep the context.[/b][/color]
