@@ -348,3 +348,21 @@ else {
 Write-Host "Nexus publication completed for $packageName."
 Write-Host "Upload ID: $($upload.id)"
 Write-Host "Publication response: $($created | ConvertTo-Json -Depth 6 -Compress)"
+
+# Create or update corresponding GitHub release if gh CLI is available
+$ghCli = Get-Command -Name gh -ErrorAction SilentlyContinue
+if ($null -ne $ghCli) {
+  $tagName = "v$version"
+  $title = "$($manifest.name) $version"
+  Write-Host "Creating/updating GitHub release '$tagName'..."
+  try {
+    gh release create $tagName $packagePath $checksumPath --title $title --notes $Changelog --clobber
+    Write-Host "GitHub release $tagName published successfully."
+  }
+  catch {
+    Write-Host "WARNING: GitHub release creation via gh CLI failed: $_"
+  }
+}
+else {
+  Write-Host "INFO: 'gh' CLI tool is not installed; skipping GitHub release creation."
+}
