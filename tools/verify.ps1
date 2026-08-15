@@ -8,7 +8,9 @@ param(
 
 $root = Get-FabricRoot
 $required = @(
-  '.redscript', 'release\manifest-template.json', 'tools\dev.ps1', 'tools\package.ps1',
+  '.redscript', 'release\manifest-template.json', 'release\nexus-metadata.md', 'release\nexus-listing.bbcode',
+  'release\nexus-publish.json',
+  'tools\dev.ps1', 'tools\package.ps1', 'tools\publish.ps1',
   'docs\smoke-test.md', 'tests\quality.ps1'
 )
 foreach ($relative in $required) {

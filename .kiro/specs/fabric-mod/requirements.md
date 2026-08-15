@@ -44,7 +44,7 @@ THEN FABRIC SHALL compile and run with its shipped default marker style and with
 
 **Requirement 2.1**  
 WHEN a player hovers an owned Wardrobe or Inventory clothing item with a normal tooltip  
-THEN that tooltip SHALL include an **Outfits:** section listing outfits that reference its complete `ItemID`. WHEN the tooltip represents a Virtual Atelier catalog item  
+THEN that tooltip SHALL include an **Outfits (N):** section, where `N` is the number of listed outfits that reference its complete `ItemID`. WHEN the tooltip represents a Virtual Atelier catalog item
 THEN the section SHALL list outfits that reference any complete `ItemID` with the same `TweakDBID`.
 
 **Requirement 2.2**  
@@ -173,6 +173,9 @@ Release builds SHALL contain no native logging calls and FABRIC diagnostics SHAL
 
 **Requirement 8.4**  
 `FabricLog` SHALL retain a stable API in every build. The debug backend SHALL emit each permitted diagnostic once through `FTLog`, `FTLogWarning`, or `FTLogError` with a stable `[FABRIC]` prefix; error entries SHALL include Codeware `GetStackTrace` call-site context. The release backend SHALL not reference native logging functions.
+
+**Requirement 8.5**
+The repository SHALL provide a Nexus publication command that validates the versioned Release archive, checksum, bundled documentation, Nexus metadata, BBCode listing source, and tracked non-secret publication identifiers. Without explicit publication intent it SHALL not read credentials or make network requests. With explicit publication intent, it SHALL require a session-local credential and confirmation, validate an existing target file is active, upload/finalize/poll the archive, create the selected file or version, and append the changelog.
 
 ---
 

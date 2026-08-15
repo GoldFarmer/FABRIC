@@ -114,6 +114,7 @@ public class FabricOutfitUsageTooltip extends inkFlex {
     }
 
     this.SortNames(names);
+    this.m_title.SetText(s"OUTFITS (\(ArraySize(names))):");
     this.m_names.SetText(this.FormatNames(names));
     this.SetVisible(true);
   }

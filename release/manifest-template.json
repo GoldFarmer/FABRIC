@@ -1,6 +1,6 @@
 {
   "name": "FABRIC",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "game": "Cyberpunk 2077",
   "runtime": "REDscript + RED4ext",
   "dependencies": {

@@ -193,7 +193,7 @@ Kiro steering files providing navigable reference documentation for all 7 mods u
 ## Phase 4 – Tooltip
 
 - [x] **4.1 – Item-tooltip augmentation**  
-  Extend the vanilla standard and store item-tooltip controllers with a FABRIC-owned "Outfits:" section. On each tooltip item update, call `FabricService.GetAssociatedOutfitNames(itemID)`, sort alphabetically, and update or hide the section without reading Equipment-EX UI controller state directly.
+  Extend the vanilla standard and store item-tooltip controllers with a FABRIC-owned "Outfits (N):" section, where `N` is the number of displayed associations. On each tooltip item update, call `FabricService.GetAssociatedOutfitNames(itemID)`, sort alphabetically, and update or hide the section without reading Equipment-EX UI controller state directly.
 
 - [x] **4.2 – Tooltip accuracy validation**  
   Tooltip output reflects the current cache after a supported reconciliation, including a compatible WEAVE rename. Multiple outfit names are alphabetically ordered.
@@ -256,7 +256,10 @@ Kiro steering files providing navigable reference documentation for all 7 mods u
   The current Kiro requirements have a recorded acceptance pass in `docs/acceptance-criteria.md`. The only constraint is the documented WEAVE JSON-sync limitation; no release-blocking failure remains.
 
 - [x] **8.5 – Release packaging**  
-  `package -BuildFlavor Release` creates a game-root-relative FABRIC runtime archive containing only `r6` and its checksum. Packaging extracts the archive and verifies the top-level layout, service, generated build profile, selected logging backend, and the README and MIT `LICENSE` under `r6/scripts/FABRIC`; it rejects a release archive containing a native logging call. The generated release profile sets verbose logging to `false` by default. The current publishable artifact is `build/release/FABRIC-0.1.2-release.zip` (SHA-256 `0a5972c6d6b44375200ff430225dd3efca66b2979bc78118f41331d13647795a`).
+  `package -BuildFlavor Release` creates a game-root-relative FABRIC runtime archive containing only `r6` and its checksum. Packaging extracts the archive and verifies the top-level layout, service, generated build profile, selected logging backend, and the README and MIT `LICENSE` under `r6/scripts/FABRIC`; it rejects a release archive containing a native logging call. The generated release profile sets verbose logging to `false` by default. The current publishable artifact is `build/release/FABRIC-0.1.3-release.zip` (SHA-256 `aced450952892d1a2d28828f7138b49a649b7485f006de7c31b317d7eca30764`).
+
+- [x] **8.5a – Nexus publication preflight**
+  `publish.ps1` validates the release archive, checksum, bundled documentation, Nexus metadata, BBCode description source, and tracked non-secret publication identifiers. Its default preflight mode does not read API credentials or make network calls. Its explicit, confirmation-gated `-Publish` mode uses the session-local API credential to validate an existing target file, upload/finalize/poll the archive, create the requested file or version, and append the changelog.
 
 ---
 

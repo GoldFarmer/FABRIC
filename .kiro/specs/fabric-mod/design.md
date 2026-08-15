@@ -152,6 +152,10 @@ Debug engine-log entries carry a `[FABRIC]` prefix; errors additionally use Code
 the immediate class/function call site. The shared native declarations remain a debug-only game-level
 prerequisite and are never packaged with FABRIC.
 
+### Nexus publication preflight
+
+`tools\publish.ps1` derives the versioned Release archive from the manifest, verifies its checksum and game-root layout, verifies the bundled README and license, and verifies the Nexus metadata, BBCode listing source, and tracked non-secret publication identifiers. It uses the tracked main-file ID for an existing-file operation unless explicitly overridden; a new-file operation may override its configured mod identifier. Its default mode displays the planned Nexus API sequence without reading a credential or making a network request. Its `-Publish` mode requires the session-local `NEXUS_API_KEY` and PowerShell confirmation, validates an existing target file is active, creates/uploads/finalizes an upload session, polls for availability, creates the requested file or version, and appends the changelog. The command supports `-WhatIf` for safe confirmation-path validation.
+
 ---
 
 ## Data Flow
@@ -199,7 +203,7 @@ Supported item-render boundary(widget, itemID)
 Vanilla item-tooltip update boundary(itemID)
   names = FabricService.GetAssociatedOutfitNames(itemID)
   sort names alphabetically
-  update FABRIC-owned "Outfits:" section, preceded by a 654 px `MainColors.Red` horizontal divider at 0.04 opacity, in the standard item tooltip
+  update FABRIC-owned "Outfits (N):" section, where `N` is the displayed association count, preceded by a 654 px `MainColors.Red` horizontal divider at 0.04 opacity, in the standard item tooltip
 ```
 
 ---
